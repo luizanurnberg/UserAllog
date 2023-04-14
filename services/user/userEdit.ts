@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { somethingWrongException } from "../../exceptions/api/somethingWrongException";
+import { ERequestStatus } from '../../enums/enums';
 import { redisGetUser } from '../redis/redisGetUser';
 import { redisUpdateUser } from '../redis/redisUpdateUser';
-import { editingException } from '../../exceptions/user/editingException';
-import { invalidUserException } from '../../exceptions/user/invalidUserException';
+import { EAPI } from '../../exceptions/EAPI/apiExceptions';
+import { EUS } from '../../exceptions/EUS/userExceptions';
 
 class userEdit {
     async editUser(request: Request, response: Response) {
@@ -12,21 +12,29 @@ class userEdit {
             const getUser = new redisGetUser();
             const userExists = await getUser.findUser(userId);
             if (userExists == null || !userId) {
-                return response.status(401).json(invalidUserException());
+                return response.status(ERequestStatus.NOT_FOUND).json(
+                    EUS.invalidUserException()
+                );
             }
 
             const userName: string = request.body.name;
             const userAge: number = request.body.age;
             if (!userName || userName == " " || userName == null && !userAge || userAge == null) {
-                return response.status(400).json(editingException());
+                return response.status(ERequestStatus.BAD_REQUEST).json(
+                    EUS.emptyFieldException()
+                );
             }
 
             const editedUser = new redisUpdateUser();
             await editedUser.editUser(userId, userName, userAge);
-            return response.status(200).json({ msg: 'Usuário editado com sucesso!', user: `${userName}, ${userAge}` },);
+            return response.status(ERequestStatus.SUCCESS).json(
+                { msg: 'Usuário editado com sucesso!', user: `${userName}, ${userAge}` }
+            );
         } catch (error) {
             console.log(error);
-            return response.status(400).json(somethingWrongException());
+            return response.status(ERequestStatus.BAD_REQUEST).json(
+                EAPI.errorFromSystemException()
+            );
         }
     }
 }

@@ -1,7 +1,6 @@
 import { createClient } from 'redis';
 
 const client = createClient();
-
 async function runRedis() {
     try {
         await client.connect();

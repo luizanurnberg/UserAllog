@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import { somethingWrongException } from '../../exceptions/api/somethingWrongException';
-import { invalidUserException } from '../../exceptions/user/invalidUserException';
+import { ERequestStatus } from '../../enums/enums';
 import { redisDeleteUser } from '../redis/redisDeleteUser';
 import { redisGetUser } from '../redis/redisGetUser';
+import { EUS } from '../../exceptions/EUS/userExceptions';
+import { EAPI } from '../../exceptions/EAPI/apiExceptions';
 
 class userDelete {
     async deleteUser(request: Request, response: Response) {
@@ -11,15 +12,21 @@ class userDelete {
             const getUser = new redisGetUser();
             const userExists = await getUser.findUser(userId);
             if (userExists == null || !userId) {
-                return response.status(401).json(invalidUserException());
+                return response.status(ERequestStatus.NOT_FOUND).json(
+                    EUS.invalidUserException()
+                );
             }
 
             const deletedUser = new redisDeleteUser();
             await deletedUser.removeUser(userId);
-            return response.status(200).json({ msg: 'Usuário removido com sucesso!' });
+            return response.status(ERequestStatus.SUCCESS).json(
+                { msg: 'Usuário removido com sucesso!' }
+            );
         } catch (error) {
             console.log(error);
-            return response.status(400).json(somethingWrongException());
+            return response.status(ERequestStatus.BAD_REQUEST).json(
+                EAPI.errorFromSystemException()
+            );
         }
     }
 }

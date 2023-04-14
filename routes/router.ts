@@ -5,11 +5,9 @@ import { userEdit } from '../services/user/userEdit';
 import { userGetById } from '../services/user/userGetById';
 
 const router = Router();
-
 router.post('/api/people/insert', new userCreate().createUser);
 router.put('/api/people/update', new userEdit().editUser);
 router.get('/api/people/getById/:id', new userGetById().getUserById);
-router.get('/api/people/list');
 router.delete('/api/people/delete/:id', new userDelete().deleteUser);
 
 export {

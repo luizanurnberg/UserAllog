@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { ERequestStatus } from './enums/enums';
+import { EAPI } from './exceptions/EAPI/apiExceptions';
 import { router } from './routes/router';
 
 const PORT = 3000;
@@ -7,7 +9,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 app.use(function (request: Request, response: Response) {
-    response.status(404).json({ msg : 'Você está tentando acessar uma rota inválida!'});
+    return response.status(ERequestStatus.NOT_FOUND).json(
+        EAPI.invalidRouteException(),
+    );
 })
 
 app.listen(PORT, () => {

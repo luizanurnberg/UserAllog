@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { somethingWrongException } from '../../exceptions/api/somethingWrongException';
-import { getIdException } from '../../exceptions/user/getIdException';
+import { ERequestStatus } from '../../enums/enums';
 import { redisGetUser } from '../redis/redisGetUser';
+import { EUS } from '../../exceptions/EUS/userExceptions';
+import { EAPI } from '../../exceptions/EAPI/apiExceptions';
 
 class userGetById {
     async getUserById(request: Request, response: Response) {
@@ -10,13 +11,17 @@ class userGetById {
             const getUser = new redisGetUser();
             const userExists = await getUser.findUser(userId);
             if (userExists == null || !userId) {
-                return response.status(401).json(getIdException());
+                return response.status(ERequestStatus.NOT_FOUND).json(
+                    EUS.gettingIdException()
+                );
             }
 
-            return response.status(200).json(JSON.parse(userExists));
+            return response.status(ERequestStatus.SUCCESS).json(
+                JSON.parse(userExists)
+            );
         } catch (error) {
             console.log(error);
-            return response.status(400).json(somethingWrongException());
+            return response.status(ERequestStatus.BAD_REQUEST).json(EAPI.errorFromSystemException());
         }
     }
 
