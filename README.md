@@ -168,7 +168,7 @@ Fluxo de exceção:
 # Configuração de ambiente 
 1. Possuir o Docker instalado;
 2. Possuir o Insomnia ou PostMan instalado;
-3. Para rodar o programa utilizar os comandos abaixo e depois esperar as success (COLOCAR AQUI O ID)
+3. Para rodar o programa utilizar os comandos abaixo e depois esperar as mensagens SUC001 e SUC002
 
 	   npm install
 	
