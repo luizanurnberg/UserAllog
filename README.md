@@ -5,15 +5,14 @@ Documento de apresentação do terceiro projeto referente ao estágio na Egadnet
 <b>Requisitos Funcionais:</b> <br>
 1. O sistema deve manter o usuário; <br>
 2. O sistema deve permitir a consulta de usuário específico; <br>
-3. O sistema deve permitir a consulta de todos os usuários cadastrados; <br>
-4. O sistema deve ler e esperar as informações de nome e idade vindas do corpo da requisição; <br>
-5. O sistema deve ler e esperar as informações do id vindas do parâmetro da requisição; <br>
-6. O sistema deve permitir o gerenciamento dos usuários cadastrados; <br>
-7. O sistema deve gerar um id aleatório para cada usuário. <br>
+3. O sistema deve ler e esperar as informações de nome e idade vindas do corpo da requisição; <br>
+4. O sistema deve ler e esperar as informações do id vindas do parâmetro da requisição; <br>
+5. O sistema deve permitir o gerenciamento dos usuários cadastrados; <br>
+6. O sistema deve gerar um id aleatório para cada usuário. <br>
 
 <b>Requisitos Não Funcionais:</b> <br>
 1. A linguagem do sistema deverá ser de fácil compreensão; <br>
-2. O sistema deve armazenar os dados no Redis. <br>
+2. O sistema deve fazer uso do Redis para o armazenamento dos dados. <br>
 
 <b>Regras de Negócio:</b> <br>
 1. O cadastro não poderá ser realizado caso algum campo esteja nulo; <br>
@@ -27,6 +26,12 @@ Documento de apresentação do terceiro projeto referente ao estágio na Egadnet
 <b>Services:</b> <br>
 
 <b>Routes:</b> <br>
+
+<b>Docker:</b> <br>
+
+<b>Enum:</b> <br>
+
+<b>Exceptions:</b> <br>
 
 # Detalhamento do sistema 
 <h2><b>Cadastrar usuário </b> <br> </h2>
@@ -144,9 +149,7 @@ Pré-condições:
 Fluxo básico:
 1. O usuário acessa o Insomnia ou Postman para testes; 
 2. O usuário acessa a rota definida para a edição;
-3. 
-4. 
-5. 
+3. O sistema retorna todos as chaves disponíveis cadastradas, caso não tenha nenhuma, não retornará nada
 
 -------------------------------------
 
@@ -187,11 +190,7 @@ Abaixo estão listados os dados esperados em cada rota:
 /api/people/getById/:id	
 		
 	id: string
-		
-		
-/api/people/list
 	
-	nenhum parâmetro esperado
 		
 /api/people/delete/:id
        
