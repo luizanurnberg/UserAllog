@@ -103,7 +103,7 @@ Fluxo de exceção:
 		
 (E1) Exceção ao passo 3 - Campos vazios;
 1. O usuário não digita todos os campos necessários para a edição;
-2. O sistema retorna a mensagem EXC003.
+2. O sistema retorna a mensagem EXC001.
 
 (E2) Exceção ao passo 3 - Usuário inexistente;
 1. O usuário digita as informações necessárias, mas elas não são válidas;
@@ -130,7 +130,7 @@ Fluxo de exceção:
 		
 (E1) Exceção ao passo 3 - Parâmetro vazio;
 1. O usuário não digita o id necessário para o funcionamento da exclusão;
-2. O sistema retorna a exception EXC003.
+2. O sistema retorna a exception EXC001.
 
 (E2) Exceção ao passo 3 - Usuário inexistente;
 1. O usuário digita a informação necessária, mas ela não é válida;
