@@ -172,7 +172,7 @@ Fluxo de exceção:
 
 	   npm install
 	
-	   docker image build -t dockerapi:1.0 .
+	   docker-compose up 
 	
 	   npm run start
 
